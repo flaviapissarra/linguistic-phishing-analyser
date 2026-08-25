@@ -14,7 +14,7 @@
 Traditional phishing detectors rely heavily on technical indicators (IP reputation, domain age, SPF/DKIM). However, modern spear-phishing and Business Email Compromise (BEC) attacks often bypass these filters by using **sophisticated linguistic manipulation**—urgency, false authority, and psychological triggers—to trick the human recipient.
 
 ##  The Solution
-The **Linguistic Phishing Analyser** bridges the gap between cybersecurity and computational linguistics. It evaluates suspicious emails across **four distinct pillars**, identifying not just technical anomalies, but the rhetorical patterns of social engineering. 
+The **Linguistic Phishing Analyser** proposes bridging the gap between cybersecurity and computational linguistics. It evaluates suspicious emails across **four distinct pillars**, identifying not just technical anomalies, but the rhetorical patterns of social engineering. 
 
 Built with a **privacy-first architecture**, the entire analysis runs locally in the user's browser. No emails are uploaded to external servers, making it safe for SOC analysts and individuals to test sensitive corporate communications.
 

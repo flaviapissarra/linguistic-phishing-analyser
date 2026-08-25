@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linguistic Phishing Analyser | Flávia Pissarra</title>
+    <meta name="description" content="Client-side phishing email analyzer detecting social engineering through linguistic patterns. 100% privacy-first.">
+    
+    <!-- 🔒 SECURITY: Content Security Policy (CSP) -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+    
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+
+    <!-- 🛡️ C4: DISCLAIMER MODAL (blocks screen while not checked) -->
+    <div id="disclaimer-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-content">
+            <h2 id="modal-title">️ Important Notice</h2>
+            <p>This tool is for educational and assistive purposes. It does not replace professional human analysis.</p>
+            <ul>
+                <li>🔒 <strong>100% Local:</strong> Your data never leaves your browser.</li>
+                <li>⚖️ <strong>No Liability:</strong> The developer is not responsible for actions taken based on this analysis.</li>
+                <li>🛡️ <strong>Responsible Use:</strong> Do not use for malicious purposes.</li>
+            </ul>
+            <p>By clicking "I Understand", you agree to these terms.</p>
+            <div class="modal-actions">
+                <button id="btn-accept-disclaimer" class="btn-primary">I Understand & Accept</button>
+                <a href="TERMS.html" class="link-secondary">Read full Terms</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN APP CONTAINER -->
+    <main class="container">
+        
+        <!-- HEADER -->
+        <header>
+            <h1>Linguistic Phishing Analyser</h1>
+            <p class="subtitle">Detecting social engineering through computational linguistics.</p>
+            <span class="badge privacy-badge">🔒 100% Client-Side & Private</span>
+        </header>
+
+        <!-- 🟦 C1: INPUT SECTION -->
+        <section id="input-section" class="card">
+            <h2>1. Submit Suspicious Email</h2>
+            
+            <!-- Option A: File Upload -->
+            <div class="upload-area" id="drop-zone">
+                <p>Drag & drop your <code>.eml</code> file here, or</p>
+                <input type="file" id="file-input" accept=".eml" hidden>
+                <button id="btn-browse" class="btn-secondary">Browse Files</button>
+                <p class="hint">Max 5MB. Headers and body will be parsed locally.</p>
+            </div>
+
+            <div class="divider"><span>OR</span></div>
+
+            <!-- Option B: Raw Text -->
+            <div class="text-area-wrapper">
+                <textarea id="raw-text-input" placeholder="Paste the raw email text or headers here..."></textarea>
+            </div>
+
+            <div class="actions">
+                <button id="btn-analyze" class="btn-primary" disabled> Analyze Email</button>
+                <button id="btn-clear" class="btn-secondary">Clear</button>
+            </div>
+        </section>
+
+        <!-- 🟨 C3: OUTPUT SECTION (Hidden by default) -->
+        <section id="output-section" class="card hidden">
+            <h2>2. Analysis Results</h2>
+            
+            <!-- Score & Verdict -->
+            <div class="score-container">
+                <div id="gauge-chart" class="gauge">
+                    <!-- SVG or CSS gauge-->
+                    <span id="score-value">0</span>
+                </div>
+                <h3 id="risk-level">Calculating...</h3>
+                <p id="verdict-text" class="verdict">Awaiting analysis...</p>
+            </div>
+
+            <!-- Flags List (4 Pillars) -->
+            <div class="flags-container">
+                <h3>Detected Indicators</h3>
+                <ul id="flags-list">
+                    <!-- JS populates it dynamically -->
+                </ul>
+            </div>
+        </section>
+
+        <!--  C5: FEEDBACK LOOP (Hidden by default) -->
+        <section id="feedback-section" class="card hidden">
+            <h2>3. Help Improve the Model</h2>
+            <p>Was this analysis accurate? Your feedback trains our gold-standard dataset.</p>
+            
+            <form id="feedback-form">
+                <fieldset>
+                    <legend>Was this actually phishing?</legend>
+                    <div class="feedback-options">
+                        <label class="option-btn red">
+                            <input type="radio" name="verdict" value="yes_sure" required>
+                            🔴 Yes, pishing for sure!
+                        </label>
+                        <label class="option-btn orange">
+                            <input type="radio" name="verdict" value="yes_probably">
+                            🟠 Probably yes
+                        </label>
+                        <label class="option-btn gray">
+                            <input type="radio" name="verdict" value="unsure">
+                            ⚪ Not sure
+                        </label>
+                        <label class="option-btn yellow">
+                            <input type="radio" name="verdict" value="no_probably">
+                             Probably no
+                        </label>
+                        <label class="option-btn green">
+                            <input type="radio" name="verdict" value="no_sure">
+                            🟢 No, it was legitimate!
+                        </label>
+                    </div>
+                </fieldset>
+
+                <div class="form-group">
+                    <label for="feedback-category">Email Category:</label>
+                    <select id="feedback-category" name="category">
+                        <option value="credential">Credential Theft</option>
+                        <option value="financial">Financial Fraud</option>
+                        <option value="delivery">Delivery/Package</option>
+                        <option value="invoice">Invoice/Billing</option>
+                        <option value="bec">CEO Fraud/BEC</option>
+                        <option value="lottery">Lottery/Prize</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="feedback-comment">What did we miss or get right? (Optional)</label>
+                    <textarea id="feedback-comment" name="comment" maxlength="500" placeholder="Max 500 characters..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary" id="btn-submit-feedback">Submit Feedback</button>
+            </form>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>Built by <a href="https://linkedin.com/in/flaviapissarra" target="_blank" rel="noopener">Flávia P. Pissarra</a> | <a href="PRIVACY.md">Privacy</a> | <a href="THREAT_MODEL.md">Threat Model</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

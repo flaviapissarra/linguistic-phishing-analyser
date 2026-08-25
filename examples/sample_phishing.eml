@@ -1,0 +1,21 @@
+From: "IT Security Team" <support@micros0ft-verify.com>
+Reply-To: admin@fake-domain.xyz
+To: user@company.com
+Subject: URGENT: Your account has been suspended
+Date: Tue, 26 Aug 2026 10:00:00 -0300
+Message-ID: <123456789@fake-domain.xyz>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: PhishingKit v2.1
+
+Dear Valued User,
+
+We detected unauthorized activity on your account. Your access has been temporarily suspended to protect your data.
+
+You must verify your identity immediately by clicking the link below:
+http://192.168.100.45/verify-account
+
+Failure to act within 24 hours will result in permanent account deletion.
+
+Best regards,
+IT Security Team
